@@ -41,6 +41,8 @@
     #videoContainer, #finalImage {
       display: none;
       max-width: 90%;
+      flex-direction: column;
+      align-items: center;
     }
 
     #startBtn {
@@ -70,23 +72,22 @@
       max-width: 1000px;
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+      margin-top: 20px;
     }
 
     #topText {
-      position: absolute;
-      top: 20px;
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: bold;
       color: deeppink;
       animation: slideDown 2s ease-out;
       display: none;
       text-align: center;
-      width: 100%;
+      margin-bottom: 20px;
     }
 
     @keyframes slideDown {
-      from { top: -50px; opacity: 0; }
-      to { top: 20px; opacity: 1; }
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -102,16 +103,15 @@
     </video>
   </div>
 
-<div id="finalImage">
-  <div id="topText">
-    Happy birthday to my amazing bestie!<br>
-    Нехай кожен твій день буде наповнений любов’ю, затишком і чарівними моментами.
-  </div>
-</div>
-
+  <div id="finalImage">
+    <div id="topText">
+      Happy birthday to my amazing bestie!<br>
+      Нехай кожен твій день буде наповнений любов’ю, затишком і чарівними моментами.
+    </div>
     <img src="alisa.png" alt="Привітання">
-    <audio id="bgMusic" src="birthday.mp3" autoplay></audio>
   </div>
+
+  <audio id="bgMusic" src="birthday.mp3"></audio>
 
   <script>
     const btn = document.getElementById("startBtn");
