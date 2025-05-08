@@ -14,6 +14,8 @@
             flex-direction: column;
             font-family: 'Comic Sans MS', cursive;
             margin: 0;
+            position: relative;
+            overflow: hidden;
         }
 
         #hearts {
@@ -45,7 +47,7 @@
 
         #videoContainer, #finalImage {
             display: none;
-            max-width: 80%;
+            max-width: 90%;
         }
 
         #startBtn {
@@ -72,9 +74,24 @@
 
         img {
             width: 100%;
-            max-width: 600px;
+            max-width: 1000px;
             border-radius: 20px;
             box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+        }
+
+        #topText {
+            position: absolute;
+            top: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: deeppink;
+            animation: slideDown 2s ease-out;
+            display: none;
+        }
+
+        @keyframes slideDown {
+            from { top: -50px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
         }
     </style>
 </head>
@@ -91,7 +108,9 @@
     </div>
 
     <div id="finalImage">
+        <div id="topText">Happy birthday to my amazing bestie!</div>
         <img src="alisa.png" alt="Привітання">
+        <audio id="bgMusic" src="birthday.mp3" autoplay></audio>
     </div>
 
     <script>
@@ -100,6 +119,10 @@
         const videoContainer = document.getElementById("videoContainer");
         const finalImage = document.getElementById("finalImage");
         const hearts = document.getElementById("hearts");
+        const music = document.getElementById("bgMusic");
+        const topText = document.getElementById("topText");
+
+        music.pause(); // щоб не стартувала одразу
 
         btn.onclick = () => {
             btn.style.display = "none";
@@ -108,7 +131,9 @@
 
             video.onended = () => {
                 videoContainer.style.display = "none";
-                finalImage.style.display = "block";
+                finalImage.style.display = "flex";
+                topText.style.display = "block";
+                music.play();
             };
         };
 
