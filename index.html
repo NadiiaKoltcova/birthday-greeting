@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Happy Birthday!</title>
+
+  <!-- Google Font with Cyrillic support -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
   <style>
     body {
       background: linear-gradient(to top right, #fff0f5, #e0ffff);
@@ -11,13 +15,13 @@
       align-items: center;
       height: 100vh;
       flex-direction: column;
-      font-family: 'Comic Sans MS', cursive;
+      font-family: 'Pacifico', cursive;
       margin: 0;
       position: relative;
       overflow: hidden;
     }
 
-    #hearts {
+    #hearts, #fireworks {
       position: absolute;
       top: 0;
       left: 0;
@@ -36,6 +40,27 @@
     @keyframes float {
       0% { transform: translateY(0) scale(1); opacity: 1; }
       100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+    }
+
+    .firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: transparent;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(0.5);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) scale(1.5);
+        opacity: 0;
+      }
     }
 
     #videoContainer, #finalImage {
@@ -95,6 +120,7 @@
   <button id="startBtn">Натисни мене 💖</button>
 
   <div id="hearts"></div>
+  <div id="fireworks"></div>
 
   <div id="videoContainer">
     <video id="birthdayVideo" controls autoplay>
@@ -119,6 +145,7 @@
     const videoContainer = document.getElementById("videoContainer");
     const finalImage = document.getElementById("finalImage");
     const hearts = document.getElementById("hearts");
+    const fireworks = document.getElementById("fireworks");
     const music = document.getElementById("bgMusic");
     const topText = document.getElementById("topText");
 
@@ -134,6 +161,7 @@
         finalImage.style.display = "flex";
         topText.style.display = "block";
         music.play();
+        launchFireworks();
       };
     };
 
@@ -146,6 +174,25 @@
         heart.innerHTML = "💖";
         hearts.appendChild(heart);
         setTimeout(() => heart.remove(), 3000);
+      }
+    }
+
+    function launchFireworks(count = 20) {
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement("div");
+        particle.className = "firework";
+
+        const x = (Math.random() - 0.5) * 300 + "px";
+        const y = (Math.random() - 0.5) * 300 + "px";
+        particle.style.setProperty("--x", x);
+        particle.style.setProperty("--y", y);
+
+        particle.style.left = 50 + Math.random() * 50 + "vw";
+        particle.style.top = 30 + Math.random() * 30 + "vh";
+        particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+
+        fireworks.appendChild(particle);
+        setTimeout(() => particle.remove(), 1000);
       }
     }
   </script>
